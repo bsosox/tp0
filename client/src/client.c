@@ -1,4 +1,6 @@
 #include "client.h"
+#include <commons/log.h>
+
 
 int main(void)
 {
@@ -80,11 +82,20 @@ void leer_consola(t_log* logger)
 {
 	char* leido;
 
-	// La primera te la dejo de yapa
-	leido = readline("> ");
+	bool leer = true;
 
+	while(leer){
+		leido = readline("> ");
+		if(leido != NULL && leido[0] != '\0'){
+			log_info(logger, leido);
+			free(leido);
+		} else{
+			leer = false;
+			free(leido);
+		}
+	}
+	return;
 	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
-
 
 	// ¡No te olvides de liberar las lineas antes de regresar!
 
